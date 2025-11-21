@@ -758,6 +758,7 @@ patterns:
       data: |
         AWS_ACCESS_KEY_ID=AKIAIOSFODNN7AAAAAAA
       start_offset: 18
+      end_offset: 38
     comments:
       - "This rule detects AWS Key IDs without any attempt to pair them with a secret key."
       - "This adds to the risk of false positives, so we exclude any Key IDs that end with 'EXAMPLE' which are often used in documentation and sample code."
@@ -776,6 +777,8 @@ patterns:
     test:
       data: |
         AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJQQJ99AAAC0123456789AAA012345678
+      start_offset: 0
+      end_offset: 84
     comments:
       - "This is an imprecise detection for Azure keys that does not identify which Azure service the key is for."
       - "Prefer using built-in more-specific rules for Azure services where possible."
@@ -795,6 +798,7 @@ patterns:
       data: |
         Ocp-Apim-Subscription-Key=0123456789abcdef0123456789abcdef
       start_offset: 26
+      end_offset: 58
     comments:
       - "This is an imprecise detection for Azure keys that does not identify which Azure service the key is for."
       - "The key lacks internal identifiable features, which are used in modern keys issued by these Azure services."
@@ -813,6 +817,7 @@ patterns:
       data: |
         BedrockApiKey=ABSKQmVkcm9ja0FQSUtleSAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
       start_offset: 14
+      end_offset: 82
     comments:
       - "AWS Bedrock API Keys start with the prefix 'ABSKQmVkcm9ja0FQSUtleS' followed by a base64-encoded string."
       - "Matches AWS Bedrock keys that have an auto-generated 'BedrockAPIKey-' username."
@@ -833,6 +838,7 @@ patterns:
       data: |
         bedrock_api_key: ABSKAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
       start_offset: 17
+      end_offset: 189
     comments:
       - "AWS Bedrock API Keys start with the prefix 'ABSK' followed by a base64-encoded string."
       - "This rule matches an alternative format of AWS Bedrock API Keys that do not have the auto-generated 'BedrockAPIKey-' username."
