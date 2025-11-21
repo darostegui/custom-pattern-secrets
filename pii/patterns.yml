@@ -257,3 +257,63 @@ patterns:
       - With no validation of the checksum this can cause a lot of false positives
       - The example test data does not have a valid checksum - it is one of the examples used with one digit in the checksum changed
       - You can test using the correct checksum, but it is used as a NOT match here to prevent false positives on other test data
+
+  - name: US Social Security number
+    type: us_ssn
+    regex:
+      pattern: |
+        (?P<area>00[1-9]|0[1-9][0-9]|[1-8][0-9][0-9])-(?P<group>0[1-9]|[1-9][0-9])-(?P<serial>[0-9]{4})
+      start: |
+        \A|[^0-9A-Za-z_-]
+      end: |
+        \z|[^0-9A-Za-z_-]
+      additional_not_match:
+        - ^666-.*$
+        - ^.*-0000$
+        - ^078-05-1120$
+    test:
+      data: |
+        123-45-6789
+      start_offset: 0
+      end_offset: 11
+    comments:
+      - There is no checksum, so where this produces false positives there is no reliable way to filter them out with post-processing
+      - This can produce false positives, since it doesn't check for all known-invalid numbers
+      - Examples include 123-45-6789 and 078-05-1120 - the latter is ignored already
+
+  - name: US Individual Taxpayer Identification Number (ITIN)
+    type: us_itin
+    regex:
+      pattern: |
+        9[0-9][0-9]-(?:5[0-9]|6[0-5]|7[0-9]|8[0-8]|9[0-24-9])-[0-9]{4}
+      start: |
+        \A|[^0-9A-Za-z_-]
+      end: |
+        \z|[^0-9A-Za-z_-]
+    test:
+      data: |
+        912-70-1234
+      start_offset: 0
+      end_offset: 11
+    comments:
+      - This can produce false positives, since it doesn't check for all known-invalid numbers
+      - There is no checksum, so where this produces false positives there is no reliable way to filter them out with post-processing
+
+  - name: UK National Insurance Number
+    type: uk_national_insurance_number
+    regex:
+      pattern: |
+        [A-Z]{2} ?[0-9]{2} ?[0-9]{2} ?[0-9]{2} ?[A-D]
+      start: |
+        \A|[^0-9A-Za-z]
+      end: |
+        \z|[^0-9A-Za-z]
+      additional_not_match:
+        - ^QQ ?12 ?34 ?56 ?[A-D]$
+    test:
+      data: |
+        QQ012345C
+      start_offset: 0
+      end_offset: 9
+    comments:
+      - There is no checksum, so where this produces false positives there is no reliable way to filter them out with post-processing

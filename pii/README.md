@@ -234,3 +234,158 @@ Add these additional matches to the [Secret Scanning Custom Pattern](https://doc
   ```
 
 </details>
+
+## US Social Security number
+
+
+
+_version: v0.1_
+
+**Comments / Notes:**
+
+
+- There is no checksum, so where this produces false positives there is no reliable way to filter them out with post-processing
+
+- This can produce false positives, since it doesn't check for all known-invalid numbers
+
+- Examples include 123-45-6789 and 078-05-1120 - the latter is ignored already
+  
+
+<details>
+<summary>Pattern Format</summary>
+
+```regex
+(?P<area>00[1-9]|0[1-9][0-9]|[1-8][0-9][0-9])-(?P<group>0[1-9]|[1-9][0-9])-(?P<serial>[0-9]{4})
+```
+
+</details>
+
+<details>
+<summary>Start Pattern</summary>
+
+```regex
+\A|[^0-9A-Za-z_-]
+```
+
+</details><details>
+<summary>End Pattern</summary>
+
+```regex
+\z|[^0-9A-Za-z_-]
+```
+
+</details>
+
+<details>
+<summary>Additional Matches</summary>
+
+Add these additional matches to the [Secret Scanning Custom Pattern](https://docs.github.com/en/enterprise-cloud@latest/code-security/secret-scanning/defining-custom-patterns-for-secret-scanning#example-of-a-custom-pattern-specified-using-additional-requirements).
+
+
+- Not Match:
+
+  ```regex
+  ^666-.*$
+  ```
+- Not Match:
+
+  ```regex
+  ^.*-0000$
+  ```
+- Not Match:
+
+  ```regex
+  ^078-05-1120$
+  ```
+
+</details>
+
+## US Individual Taxpayer Identification Number (ITIN)
+
+
+
+_version: v0.1_
+
+**Comments / Notes:**
+
+
+- This can produce false positives, since it doesn't check for all known-invalid numbers
+
+- There is no checksum, so where this produces false positives there is no reliable way to filter them out with post-processing
+  
+
+<details>
+<summary>Pattern Format</summary>
+
+```regex
+9[0-9][0-9]-(?:5[0-9]|6[0-5]|7[0-9]|8[0-8]|9[0-24-9])-[0-9]{4}
+```
+
+</details>
+
+<details>
+<summary>Start Pattern</summary>
+
+```regex
+\A|[^0-9A-Za-z_-]
+```
+
+</details><details>
+<summary>End Pattern</summary>
+
+```regex
+\z|[^0-9A-Za-z_-]
+```
+
+</details>
+
+## UK National Insurance Number
+
+
+
+_version: v0.1_
+
+**Comments / Notes:**
+
+
+- There is no checksum, so where this produces false positives there is no reliable way to filter them out with post-processing
+  
+
+<details>
+<summary>Pattern Format</summary>
+
+```regex
+[A-Z]{2} ?[0-9]{2} ?[0-9]{2} ?[0-9]{2} ?[A-D]
+```
+
+</details>
+
+<details>
+<summary>Start Pattern</summary>
+
+```regex
+\A|[^0-9A-Za-z]
+```
+
+</details><details>
+<summary>End Pattern</summary>
+
+```regex
+\z|[^0-9A-Za-z]
+```
+
+</details>
+
+<details>
+<summary>Additional Matches</summary>
+
+Add these additional matches to the [Secret Scanning Custom Pattern](https://docs.github.com/en/enterprise-cloud@latest/code-security/secret-scanning/defining-custom-patterns-for-secret-scanning#example-of-a-custom-pattern-specified-using-additional-requirements).
+
+
+- Not Match:
+
+  ```regex
+  ^QQ ?12 ?34 ?56 ?[A-D]$
+  ```
+
+</details>
