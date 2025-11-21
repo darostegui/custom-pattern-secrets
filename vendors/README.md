@@ -1551,3 +1551,230 @@ _version: v0.1_
 ```
 
 </details>
+
+## AWS Key ID (standalone)
+
+
+AWS Key ID not confirmed. to be paired with a secret key
+_version: v0.1_
+
+**Comments / Notes:**
+
+
+- This rule detects AWS Key IDs without any attempt to pair them with a secret key.
+
+- This adds to the risk of false positives, so we exclude any Key IDs that end with 'EXAMPLE' which are often used in documentation and sample code.
+
+- The built-in detection for AWS Key ID + Secret Key pairs should be preferred where possible, but this can provide push protection blocking in cases where only the Key ID is present.
+  
+
+<details>
+<summary>Pattern Format</summary>
+
+```regex
+(?:A3T[A-Z0-9]|A(?:[KBS]I|CC|GP|I[DP]|N[PV]|PK|RO|SC)A)[A-Z2-7]{16}
+```
+
+</details>
+
+<details>
+<summary>Start Pattern</summary>
+
+```regex
+\A|[^0-9A-Za-z+/_-]
+```
+
+</details><details>
+<summary>End Pattern</summary>
+
+```regex
+\z|[^0-9A-Za-z=%+/_-]
+```
+
+</details>
+
+<details>
+<summary>Additional Matches</summary>
+
+Add these additional matches to the [Secret Scanning Custom Pattern](https://docs.github.com/en/enterprise-cloud@latest/code-security/secret-scanning/defining-custom-patterns-for-secret-scanning#example-of-a-custom-pattern-specified-using-additional-requirements).
+
+
+- Not Match:
+
+  ```regex
+  ^.*EXAMPLE$
+  ```
+
+</details>
+
+## Azure generic key
+
+
+Azure generic key - imprecise detection that does not tell you which service is affected
+_version: v0.1_
+
+**Comments / Notes:**
+
+
+- This is an imprecise detection for Azure keys that does not identify which Azure service the key is for.
+
+- Prefer using built-in more-specific rules for Azure services where possible.
+
+- This is useful for older versions of Enterprise Server that do not already have this detection.
+  
+
+<details>
+<summary>Pattern Format</summary>
+
+```regex
+[A-Za-z0-9]{52}JQQJ99[AB][A-Za-z0-9]AC[A-Za-z0-9]{10}AAA[A-Za-z0-9]{9}
+```
+
+</details>
+
+<details>
+<summary>Start Pattern</summary>
+
+```regex
+\A|[^A-Za-z0-9/+]
+```
+
+</details><details>
+<summary>End Pattern</summary>
+
+```regex
+\z|[^A-Za-z0-9/+=]
+```
+
+</details>
+
+## Azure generic key (legacy)
+
+
+Azure generic key - legacy format without internal identifiable features
+_version: v0.1_
+
+**Comments / Notes:**
+
+
+- This is an imprecise detection for Azure keys that does not identify which Azure service the key is for.
+
+- The key lacks internal identifiable features, which are used in modern keys issued by these Azure services.
+  
+
+<details>
+<summary>Pattern Format</summary>
+
+```regex
+[a-f0-9]{32}
+```
+
+</details>
+
+<details>
+<summary>Start Pattern</summary>
+
+```regex
+(?i)(Ocp-Apim-Subscription-Key: |Ocp-Apim-Subscription-Key=|OcpApimSubscriptionKey=|Subscription-Key=)
+```
+
+</details><details>
+<summary>End Pattern</summary>
+
+```regex
+\z|[^A-Za-z0-9/+=]
+```
+
+</details>
+
+## AWS Bedrock API Key
+
+
+AWS Bedrock API Key - automatic username
+_version: v0.1_
+
+**Comments / Notes:**
+
+
+- AWS Bedrock API Keys start with the prefix 'ABSKQmVkcm9ja0FQSUtleS' followed by a base64-encoded string.
+
+- Matches AWS Bedrock keys that have an auto-generated 'BedrockAPIKey-' username.
+  
+
+<details>
+<summary>Pattern Format</summary>
+
+```regex
+ABSKQmVkcm9ja0FQSUtleS[A-Za-z0-9+/]{2}([A-Za-z0-9+/]{4})+([A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)
+```
+
+</details>
+
+<details>
+<summary>Start Pattern</summary>
+
+```regex
+\A|[^A-Za-z0-9/+]
+```
+
+</details><details>
+<summary>End Pattern</summary>
+
+```regex
+\z|[^A-Za-z0-9/+=]
+```
+
+</details>
+
+## AWS Bedrock API Key (2)
+
+
+AWS Bedrock API Key - manual username
+_version: v0.1_
+
+**Comments / Notes:**
+
+
+- AWS Bedrock API Keys start with the prefix 'ABSK' followed by a base64-encoded string.
+
+- This rule matches an alternative format of AWS Bedrock API Keys that do not have the auto-generated 'BedrockAPIKey-' username.
+  
+
+<details>
+<summary>Pattern Format</summary>
+
+```regex
+ABSK([A-Za-z0-9+/]{4}){26,}([A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)
+```
+
+</details>
+
+<details>
+<summary>Start Pattern</summary>
+
+```regex
+\A|[^A-Za-z0-9/+]
+```
+
+</details><details>
+<summary>End Pattern</summary>
+
+```regex
+\z|[^A-Za-z0-9/+=]
+```
+
+</details>
+
+<details>
+<summary>Additional Matches</summary>
+
+Add these additional matches to the [Secret Scanning Custom Pattern](https://docs.github.com/en/enterprise-cloud@latest/code-security/secret-scanning/defining-custom-patterns-for-secret-scanning#example-of-a-custom-pattern-specified-using-additional-requirements).
+
+
+- Not Match:
+
+  ```regex
+  ^ABSKQmVkcm9ja0FQSUtleS
+  ```
+
+</details>

@@ -639,7 +639,7 @@ Add these additional matches to the [Secret Scanning Custom Pattern](https://doc
 - Not Match:
 
   ```regex
-  ^(/|file:///|https?://[A-Za-z]:/)[A-Za-z0-9._-]{3,}+(/[a-z._-]{1,}){2,}/?$
+  ^(/|file:///|https?://[A-Za-z]:/)[A-Za-z0-9._-]{3,}(/[a-z._-]{1,}){2,}/?$
   ```
 
 </details>

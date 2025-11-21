@@ -101,6 +101,12 @@ Custom Secret Scanning Patterns repository.
 - IBAN
 
 - Norwegian national identity number/D number
+
+- US Social Security number
+
+- US Individual Taxpayer Identification Number (ITIN)
+
+- UK National Insurance Number
   
 
 ### [RSA Keys](./rsa)
@@ -206,4 +212,14 @@ Custom Secret Scanning Patterns repository.
 - Azure Shared Access Signature (SAS) Token
 
 - CircleCI API token
+
+- AWS Key ID (standalone)
+
+- Azure generic key
+
+- Azure generic key (legacy)
+
+- AWS Bedrock API Key
+
+- AWS Bedrock API Key (2)
   
