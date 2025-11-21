@@ -1675,7 +1675,7 @@ _version: v0.1_
 <summary>Start Pattern</summary>
 
 ```regex
-(?i)(Ocp-Apim-Subscription-Key: |Ocp-Apim-Subscription-Key=|OcpApimSubscriptionKey=|Subscription-Key=)
+(?i)(?:Ocp-Apim-Subscription-Key: |Ocp-Apim-Subscription-Key=|OcpApimSubscriptionKey=|Subscription-Key=)
 ```
 
 </details><details>
@@ -1705,7 +1705,7 @@ _version: v0.1_
 <summary>Pattern Format</summary>
 
 ```regex
-ABSKQmVkcm9ja0FQSUtleS[A-Za-z0-9+/]{2}([A-Za-z0-9+/]{4})+([A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?
+ABSKQmVkcm9ja0FQSUtleS[A-Za-z0-9+/]{2}(?:[A-Za-z0-9+/]{4})+(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?
 ```
 
 </details>
@@ -1744,7 +1744,7 @@ _version: v0.1_
 <summary>Pattern Format</summary>
 
 ```regex
-ABSK([A-Za-z0-9+/]{4}){26,}([A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?
+ABSK(?:[A-Za-z0-9+/]{4}){26,}(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?
 ```
 
 </details>
