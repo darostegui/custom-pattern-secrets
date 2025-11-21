@@ -327,7 +327,7 @@ patterns:
         # non-secret related content
         - ^(?i)(true|false|y(es)?|no?|on|off|0|1|nill|null|none|(\\x[a-f0-9]{2})+)$
         # a path
-        - '^(/|file:///|https?://[A-Za-z]:/)[A-Za-z0-9._-]{3,}+(/[a-z._-]{1,}){2,}/?$'
+        - '^(/|file:///|https?://[A-Za-z]:/)[A-Za-z0-9._-]{3,}(/[a-z._-]{1,}){2,}/?$'
     comments:
       - "Looks for secrets in the format of `SECRET=secret` at the start of a line, possibly with an `ENV ` or `export ` prefix"
       - "Allows no whitespace in the secret, to cut false positives"
